@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中間課題_追加課題</title>
+<style>
+  html,body {
+    height: 100%;
+    margin: 0;
+  }
+  main {
+    padding: 30px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 75%;
+  }
+  td {
+    padding: 20px 20px;
+    border: 1px solid #000;
+  }
+  
+</style>
+</head>
+<body>
+<main>
+  <table id="table"></table>
+</main>
+<script src="https://js.cybozu.com/axios/v0.27.2/axios.min.js"></script>
+<script>
+(() => {
+  'use strict';
+
+  axios.get('https://54o76ppvn8.execute-api.ap-northeast-1.amazonaws.com/prod/bb-dojo', {
+    params: {
+      id: 'dojo',
+      query: 'order by day desc limit 3',
+    }
+  }).then((resp) => {
+    Object.keys(resp.data).forEach((val) => {
+      // apiからデータを取得
+      const dayData = resp.data[val].day.value;
+      const catData = resp.data[val].category.value;
+      const titleData = resp.data[val].content.value;
+
+      // 行<tr>を作成
+      const row = document.getElementById('table').insertRow();
+      // 行<tr>の中に日付を入れる<td>を作成する
+      const daytd = row.insertCell();
+      daytd.textContent = dayData;
+      // 日付の<td>の文字列を中央寄せにする
+      daytd.style.textAlign = 'center';
+      // 行<tr>の中にカテゴリを入れる<td>を作成する
+      const cattd = row.insertCell(-1);
+      cattd.textContent = catData;
+      // カテゴリの<td>の文字列を中央寄せにする
+      cattd.style.textAlign = 'center';
+      // カテゴリによって背景色を分けるswitch文
+      switch (catData) {
+        case '企業情報':
+          cattd.style.backgroundColor = '#87cefa';
+          break;
+        case 'IR 情報':
+          cattd.style.backgroundColor = '#f08080';
+          break;
+        case '製品':
+          cattd.style.backgroundColor = '#7fffd4';
+          break;
+      }
+
+      // 行<tr>の中にタイトルを入れる<td>を作成する
+      const titiletd = row.insertCell(-1);
+
+      // タイトルを入れる<td>の中に<a href=>タグを追加
+      const aElement = document.createElement('a');
+      aElement.textContent = titleData;
+      titiletd.appendChild(aElement);
+      aElement.href = resp.data[val].url.value;
+      aElement.target = resp.data[val].target.value;
+
+      // タイトル⽂字数が30を超えるとき（titleData.length > 30）は表⽰制限を⾏う
+      if (titleData.length > 30) {
+        const strTitle = titleData.slice(0, 30);
+        aElement.textContent = strTitle + '..';
+      }
+    });
+  }).catch((err) => {
+    console.log(`エラーだよ：${err}`);
+  });
+})();
+
+</script>
+</body>
+</html>
