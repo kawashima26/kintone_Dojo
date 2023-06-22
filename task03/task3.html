@@ -114,28 +114,15 @@ li {
       deleteAuth: '営業部'
     },
   };
-  console.log(fileManage);
 
-  // 手順3-2：オブジェクトに格納されている値を全てブラウザに表⽰する
   Object.keys(fileManage).forEach((val1) => {
-    // （確認）console.log(val1); // f001,f002,f003を一つずつ出力
     // （下行の説明）.keys(fileManage[val1])で、fileManage[f001],fileManage[f002],fileManage[f003]を取得している
     Object.keys(fileManage[val1]).forEach((val2) => {
-      // （確認）console.log(val2); // f001のfolderName,viewAuth,editAuth,deleteAuth、f002の～、f003～を出力
-      // （確認）console.log(fileManage[val1][val2]); // 情報システム部,Everyone,情報システム部,情報システム部,経理管理部…を出力
+      // 手順3-2：オブジェクトに格納されている値を全てブラウザに表⽰する
       const youso = fileManage[val1][val2];
       document.getElementById(`${val1}-${val2}`).textContent = youso; // htmlのtableの<td>タグのidを`${val1}-${val2}`で指定
-    });
-  });
 
-  // 手順3-3：閲覧権限がEveryoneのフォルダ名をリスト表⽰する
-  Object.keys(fileManage).forEach((val1) => {
-    // （確認）console.log(val1); // f001,f002,f003を一つずつ出力
-    // （下行の説明）Object.keys(fileManage[val1])で、fileManage[f001],fileManage[f002],fileManage[f003]を取得し、
-    // .forEach((val2) => { で、f001の下の階層、f002の下の階層、f003の下の階層を参照している
-    Object.keys(fileManage[val1]).forEach((val2) => {
-      // （確認）console.log(val2); // （f001の）folderName,viewAuth,editAuth,deleteAuth、（f002の）folderName～、f003～を出力
-      // （確認）console.log(fileManage[val1][val2]); // 情報システム部,Everyone,情報システム部,情報システム部,経理管理部…を出力
+      // 手順3-3：閲覧権限がEveryoneのフォルダ名をリスト表⽰する
       // 閲覧権限（viewAuth）が''Everyone'のとき、フォルダ名（folderName）をhtmlのlist内の子要素liの中の文字列として出力する
       if (fileManage[val1][val2] === 'Everyone') {
         const liElement = document.createElement('li'); // 新しいhtml要素liを作成
