@@ -54,37 +54,32 @@ header h2 {
   // ここに処理を記載する
   'use strict';
   const checkArray = document.getElementsByClassName('chk'); // 2つのチェックボックスのclass名を配列に入れる
-  console.log(checkArray); // 確認用
   const chk0 = checkArray[0]; // 1つ目のチェックボックスのclass名
   const chk1 = checkArray[1]; // 2つ目のチェックボックスのclass名
-  let optionTotal1 = 0; // セキュアオプション総額の初期値は0
-  let optionTotal2 = 0; // ディスク増設オプション総額の初期値は0
+  let optionTotal = 0; // オプション総額の初期値は0
+  const monthprice = Number(document.getElementById('price').textContent);
 
   // 1つ目のチェックボックスが選択された場合
   chk0.onclick = () => {
     if (chk0.checked === true) {
-      optionTotal1 += Number(chk0.value); // オプションとして+250する（chk0.value（＝250）は文字列なので、Number(chk0.value)で、数値に変換する）
+      optionTotal += Number(chk0.value); // オプションとして+250する（chk0.value（＝250）は文字列なので、Number(chk0.value)で、数値に変換する）
     } else if (chk0.checked === false) {
-      optionTotal1 = 0;
-      console.log(optionTotal1);
+      optionTotal -= Number(chk0.value);
+      console.log(optionTotal);
     }
-    document.getElementById('price').textContent = 3900 + optionTotal1 + optionTotal2;
+    document.getElementById('price').textContent = monthprice + optionTotal;
   };
 
   // 2つ目のチェックボックスが選択された場合
   chk1.onclick = () => {
     if (chk1.checked === true) {
-      optionTotal2 += Number(chk1.value);
+      optionTotal += Number(chk1.value);
     } else if (chk1.checked === false) {
-      optionTotal2 = 0;
-      console.log(optionTotal2);
+      optionTotal -= Number(chk1.value);
+      console.log(optionTotal);
     }
-    document.getElementById('price').textContent = 3900 + optionTotal1 + optionTotal2;
+    document.getElementById('price').textContent = monthprice + optionTotal;
   };
-
-  // onclickとcheckedの違い
-  // onclick：マウスがクリックされたとき（外すクリック、チェック入れたとき）
-  // .checked：チェックされた状態のとき
   
 </script>
 </body>
