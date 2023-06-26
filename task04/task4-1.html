@@ -56,29 +56,26 @@ header h2 {
   const checkArray = document.getElementsByClassName('chk'); // 2つのチェックボックスのclass名を配列に入れる
   const chk0 = checkArray[0]; // 1つ目のチェックボックスのclass名
   const chk1 = checkArray[1]; // 2つ目のチェックボックスのclass名
-  let optionTotal = 0; // オプション総額の初期値は0
-  const monthprice = Number(document.getElementById('price').textContent);
+  let total = Number(document.getElementById('price').textContent);
 
   // 1つ目のチェックボックスが選択された場合
   chk0.onclick = () => {
     if (chk0.checked === true) {
-      optionTotal += Number(chk0.value); // オプションとして+250する（chk0.value（＝250）は文字列なので、Number(chk0.value)で、数値に変換する）
+      total += Number(chk0.value); // オプションとして+250する（chk0.value（＝250）は文字列なので、Number(chk0.value)で、数値に変換する）
     } else if (chk0.checked === false) {
-      optionTotal -= Number(chk0.value);
-      console.log(optionTotal);
+      total -= Number(chk0.value);
     }
-    document.getElementById('price').textContent = monthprice + optionTotal;
+    document.getElementById('price').textContent = total;
   };
 
   // 2つ目のチェックボックスが選択された場合
   chk1.onclick = () => {
     if (chk1.checked === true) {
-      optionTotal += Number(chk1.value);
+      total += Number(chk1.value);
     } else if (chk1.checked === false) {
-      optionTotal -= Number(chk1.value);
-      console.log(optionTotal);
+      total -= Number(chk1.value);
     }
-    document.getElementById('price').textContent = monthprice + optionTotal;
+    document.getElementById('price').textContent = total;
   };
   
 </script>
