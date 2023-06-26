@@ -1,0 +1,40 @@
+(() => {
+  'use strict';
+  const eventtype = ['app.record.create.show', 'app.record.edit.show',
+    'app.record.edit.change.日付', 'app.record.create.change.サイボウズ製品', 'app.record.create.change.管理番号'];
+
+  kintone.events.on(eventtype, (event) => {
+    console.log(event); // アプリのデータオブジェクト確認
+    const FieldElement = event.record.重複禁止項目_文字列; // 重複禁止項目フィールドを参照
+
+    // 重複禁止項目⽂字列フィールドは常に編集不可にする
+    FieldElement.disabled = true;
+
+    // 日重複禁止項目文字列フィールドに入れる日付の値を定義
+    const inputDate = event.record.日付.value;
+    const newdate = dateFns.format(inputDate, 'YYYYMMDD'); // 日付をハイフンなしの形に変換
+
+    // サイボウズ製品の種類が選択されたとき、重複禁止項目文字列フィールドに入れる値を定義
+    let proElement = '';
+    switch (event.record.サイボウズ製品.value) {
+      case 'kintone':
+        proElement = 'KN';
+        break;
+      case 'Garoon':
+        proElement = 'GR';
+        break;
+      case 'サイボウズ Office':
+        proElement = 'OF';
+        break;
+      case 'Mailwise':
+        proElement = 'MW';
+        break;
+    }
+
+    // 管理番号を入力したとき、重複禁止項目文字列フィールドに入れる管理番号の値を定義
+    const inputNumber = event.record.管理番号.value;
+    // 重複禁止項目文字列に値を代入
+    FieldElement.value = `${newdate}-${proElement}-${inputNumber}`;
+    return event;
+  });
+})();
