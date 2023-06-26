@@ -82,7 +82,7 @@
 
       // タイトル⽂字数が30を超えるとき（titleData.length > 30）は表⽰制限を⾏う
       if (titleData.length > 30) {
-        const strTitle = titleData.slice(0, 30);
+        const strTitle = titleData.substr(0, 30);
         aElement.textContent = strTitle + '..';
       }
     });
