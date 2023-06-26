@@ -93,7 +93,6 @@ li {
   // ここに処理を記載する
   'use strict';
 
-  // 手順3-1：オブジェクトを定義してconsole.logで表⽰する
   const fileManage = {
     f001: {
       folderName: '情報システム部',
@@ -116,19 +115,14 @@ li {
   };
 
   Object.keys(fileManage).forEach((val1) => {
-    // （下行の説明）.keys(fileManage[val1])で、fileManage[f001],fileManage[f002],fileManage[f003]を取得している
+    if (fileManage[val1].viewAuth === 'Everyone') {
+      const liElement = document.createElement('li');
+      liElement.textContent = fileManage[val1].folderName;
+      document.getElementById('list').appendChild(liElement);
+    }
     Object.keys(fileManage[val1]).forEach((val2) => {
-      // 手順3-2：オブジェクトに格納されている値を全てブラウザに表⽰する
       const youso = fileManage[val1][val2];
-      document.getElementById(`${val1}-${val2}`).textContent = youso; // htmlのtableの<td>タグのidを`${val1}-${val2}`で指定
-
-      // 手順3-3：閲覧権限がEveryoneのフォルダ名をリスト表⽰する
-      // 閲覧権限（viewAuth）が''Everyone'のとき、フォルダ名（folderName）をhtmlのlist内の子要素liの中の文字列として出力する
-      if (fileManage[val1][val2] === 'Everyone') {
-        const liElement = document.createElement('li'); // 新しいhtml要素liを作成
-        liElement.textContent = fileManage[val1].folderName; // 新しいhtml要素liにフォルダ名のテキストを追加
-        document.getElementById('list').appendChild(liElement); // 要素liを追加したいltml要素のidを取得し、.appendChild()で子要素としてliを加える
-      }
+      document.getElementById(`${val1}-${val2}`).textContent = youso;
     });
   });
 
