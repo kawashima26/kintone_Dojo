@@ -21,7 +21,6 @@
     // Action5のオブジェクトデータを配列にする
     const action5DataSort = [];
     Object.keys(action5Data).forEach((val) => {
-      console.log(action5Data[val]);
       action5DataSort.push(action5Data[val]);
     });
 
