@@ -70,12 +70,10 @@ header h2 {
   // ここに処理を記載する
   'use strict';
   const checkArray = document.getElementsByClassName('chk'); // 2つのチェックボックスのclass名を配列に入れる
-  console.log(checkArray); // 確認用
   const chk0 = checkArray[0];
   const chk1 = checkArray[1];
 
   const valArray = document.getElementsByClassName('slct');
-  console.log(valArray); // 確認用
   const val0 = valArray[0];
   const val1 = valArray[1];
 
@@ -94,8 +92,6 @@ header h2 {
     } else if (chk1.checked === false) {
       optionTotal2 = 0;
     }
-    console.log(optionTotal1); // 確認用
-    console.log(optionTotal2); // 確認用
     // 合計
     document.getElementById('price').textContent = 3900 + optionTotal1 + optionTotal2;
   };
